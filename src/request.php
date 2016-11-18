@@ -22,7 +22,7 @@ class Request {
 	 */
 	public static function factory($uri)
 	{
-		$request = new CubePHP\Request($uri);
+		$request = new Request($uri);
 
 		return $request;
 	}
