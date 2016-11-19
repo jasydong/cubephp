@@ -58,11 +58,14 @@ class Request {
 
         if (empty($uri)) {
             $uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+            if (isset($_SERVER['PHP_SELF']) && !empty($_SERVER['PHP_SELF'])) {
+                $uri = str_replace($_SERVER['PHP_SELF'], '', $uri);
+            }
         }
 
         if (isset($_GET['action']) && !empty($_GET['action'])) {
             $parts = explode(".", $_GET['action']);
-        } else if (!empty($uri)) {print_r($parts);
+        } else if (!empty($uri)) {
             preg_match('/\/(\w+)(?:\/(\w+))?/i', $uri, $matches);
             if (isset($matches[1])) {
                 $parts[] = $matches[1];
@@ -72,11 +75,11 @@ class Request {
             }
         }
 
-        if ($parts[0]) {
+        if (isset($parts[0]) && empty($parts[0])) {
             $this->_controller = $parts[0];
         }
 
-        if ($parts[1]) {
+        if (isset($parts[1]) && empty($parts[1])) {
             $this->_action = $parts[1];
         }
 
