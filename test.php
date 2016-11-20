@@ -28,8 +28,12 @@ set_exception_handler(function($e) {
 spl_autoload_register(function($class) {
 	//自动加载文件路径
 	$autoload = array(
-		'CubePHP\App'=>'src/app.php',
-		'CubePHP\Request'=>'src/request.php',
+		'CubePHP\App'=>'core/app.php',
+		'CubePHP\Request'=>'core/request.php',
+        'CubePHP\Controller'=>'core/controller.php',
+        'CubePHP\Model'=>'core/model.php',
+        'Controller\Index'=>'controller/index.php',
+        'Model\Demo'=>'model/demo.php',
 	);
 
 	if (isset($autoload[$class])) {
@@ -37,9 +41,12 @@ spl_autoload_register(function($class) {
 	}
 });
 
-use CubePHP\App;
-use CubePHP\Request;
 
-$app = new CubePHP\App();
-var_dump($app->getVersion());
+use \CubePHP;
+use \Controller;
+use \Model;
 
+
+echo '<pre>';
+$request = CubePHP\Request::factory();
+$request->execute();
