@@ -108,8 +108,13 @@ class Request {
 	public function execute()
 	{
         try {
-            return $this;
-            
+            if (!empty($this->_controller)) {
+                $controller = Controller::factory($this->_controller);
+                if ($this->_action) {
+                    $action = $this->_action;
+                    $controller->$action();
+                }
+            }
         } catch (Exception $e) {
 
         }
