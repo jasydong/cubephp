@@ -1,7 +1,14 @@
 <?php
 
+use \CubePHP;
+use \Controller;
+use \Model;
+
+
 error_reporting(E_ALL);
 ini_set("display_errors", true);
+
+define('APPROOT', __DIR__);
 
 //注册异常处理
 register_shutdown_function(function() {
@@ -28,12 +35,12 @@ set_exception_handler(function($e) {
 spl_autoload_register(function($class) {
 	//自动加载文件路径
 	$autoload = array(
-		'CubePHP\App'=>'core/app.php',
-		'CubePHP\Request'=>'core/request.php',
-        'CubePHP\Controller'=>'core/controller.php',
-        'CubePHP\Model'=>'core/model.php',
-        'Controller\Index'=>'controller/index.php',
-        'Model\Demo'=>'model/demo.php',
+		'CubePHP\\App'=>'core/app.php',
+		'CubePHP\\Request'=>'core/request.php',
+        'CubePHP\\Controller'=>'core/controller.php',
+        'CubePHP\\Model'=>'core/model.php',
+        'Controller\\Index'=>'controller/index.php',
+        'Model\\Demo'=>'model/demo.php',
 	);
 
 	if (isset($autoload[$class])) {
@@ -42,11 +49,5 @@ spl_autoload_register(function($class) {
 });
 
 
-use \CubePHP;
-use \Controller;
-use \Model;
-
-
-echo '<pre>';
 $request = CubePHP\Request::factory();
 $request->execute();
