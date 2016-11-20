@@ -13,6 +13,11 @@ namespace CubePHP;
 class Controller {
 
 	/**
+	 * @var $viewPath View Path
+	 */
+	public $viewPath = 'view';
+
+	/**
 	 * Factory
 	 */
 	public static function factory($name='')
@@ -28,4 +33,19 @@ class Controller {
 		return null;
 	}
 
+    public function setViewPath($path='') {
+        if (!empty($path)) {
+            $this->viewPath = $path;
+        }
+
+        return $this;
+    }
+
+    public function loadView($name='') {
+        if (!empty($name)) {
+            require APPROOT.'/'.$this->viewPath.'/'.$name.'.php';
+        }
+
+        return $this;
+    }
 }

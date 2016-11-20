@@ -2,6 +2,8 @@
 
 namespace Controller;
 
+use \CubePHP\Controller;
+
 /**
  * Index Controller
  *
@@ -9,14 +11,14 @@ namespace Controller;
  * @author     JasyDong
  * @copyright  (c) 2016 CubePHP
  */
-class Index {
+class Index extends \CubePHP\Controller {
 
 	/**
 	 * Index Action
 	 */
 	public function index()
 	{
-		print_r('hello, world!');
+        $this->loadView('index/index');
 	}
 
 }
