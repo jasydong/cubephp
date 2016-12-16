@@ -1,7 +1,7 @@
 {
   "name": "jasydong/cubephp",
   "description": "A super lightweight php framework",
-  "type": "magento2-module",
+  "type": "php framework",
   "version": "1.0.0",
   "license": [
     "OSL-3.0"
