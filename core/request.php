@@ -75,11 +75,11 @@ class Request {
             }
         }
 
-        if (isset($parts[0]) && empty($parts[0])) {
+        if (isset($parts[0]) && !empty($parts[0])) {
             $this->_controller = $parts[0];
         }
 
-        if (isset($parts[1]) && empty($parts[1])) {
+        if (isset($parts[1]) && !empty($parts[1])) {
             $this->_action = $parts[1];
         }
 
