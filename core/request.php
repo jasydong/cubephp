@@ -59,7 +59,11 @@ class Request {
         if (empty($uri)) {
             $uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
             if (isset($_SERVER['PHP_SELF']) && !empty($_SERVER['PHP_SELF'])) {
+			if (APPROOT != $_SERVER['DOCUMENT_ROOT']) {
+				$subdir = str_replace($_SERVER['DOCUMENT_ROOT'], '', APPROOT);
+			}
                 $uri = str_replace($_SERVER['PHP_SELF'], '', $uri);
+				$uri = str_replace($subdir, '', $uri);
             }
         }
 
