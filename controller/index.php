@@ -2,7 +2,7 @@
 
 namespace Controller;
 
-use \CubePHP\Controller;
+use CubePHP\Controller;
 
 /**
  * Index Controller
@@ -11,7 +11,7 @@ use \CubePHP\Controller;
  * @author     JasyDong
  * @copyright  (c) 2016 CubePHP
  */
-class Index extends \CubePHP\Controller {
+class Index extends Controller {
 
 	/**
 	 * Index Action
