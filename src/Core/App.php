@@ -17,13 +17,32 @@ class App {
         self::setExceptionHandler();
     }
 
-    public static function run () {
+    /**
+     * 运行
+     */
+    public static function run() {
         // 初始化
         static::init();
 
         // 处理请求
         $request = Request::factory();
         $request->execute();
+    }
+
+    /**
+     * 运行(用于WebServer)
+     */
+    public static function runForWebServer() {
+        // 初始化
+        static::init();
+
+        // 处理请求
+        $request = Request::factory();
+        // 开启Buffer
+        ob_start();
+        $request->execute();
+
+        return ob_get_clean();
     }
 
     /**

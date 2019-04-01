@@ -22,7 +22,9 @@ class Controller {
 	{
         if (!empty($name)) {
             $className = "CubePHP\\Controller\\".ucwords($name);
-            $object = new $className;
+            if (class_exists($className)) {
+                $object = new $className;
+            }
 
             return $object;
         }

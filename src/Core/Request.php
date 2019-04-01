@@ -116,9 +116,11 @@ class Request {
         try {
             if (!empty($this->_controller)) {
                 $controller = Controller::factory($this->_controller);
-                if ($this->_action) {
-                    $action = $this->_action;
-                    $controller->$action();
+                if ($controller && !empty($this->_action)) {
+					$action = $this->_action;
+					if (method_exists($controller, $action)) {
+						$controller->$action();
+					}
                 }
             }
         } catch (Exception $e) {
