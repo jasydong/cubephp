@@ -52,16 +52,17 @@ class App {
         register_shutdown_function(function() {
             $last = error_get_last();
             if (!empty($last)) {
-                Log::debug(json_encode($last));
+                $message = isset($last['message']) ? $last['message']:'';
+                $file = isset($last['file']) ? $last['file']:'';
+                $line = isset($last['line']) ? $last['line']:'';
+                Log::error("{$message} in file {$file}(line:{$line})");
             }
         });
 
         set_error_handler(function($code, $error, $file = null, $line = null) {
             if (error_reporting() & $code) {
-                Log::error("{$error} in file {$file}(line:{$line})");
+                throw new Exception($error, $code);
             }
-
-            return true;
         });
 
         set_exception_handler(function($e) {
@@ -69,12 +70,12 @@ class App {
                 $message = $e->getMessage();
                 $file = $e->getFile();
                 $line = $e->getLine();
-                $traces = $e->getTrace();
+                $traceString = $e->getTraceAsString();
 
                 Log::error("{$message} in file {$file}(line:{$line})");
 
                 if (!empty($traces)) {
-                    //print_r($traces);
+                    Log::error("{$traceString}");
                 }
 
                 return true;
