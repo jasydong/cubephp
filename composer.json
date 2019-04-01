@@ -10,5 +10,11 @@
     "php": ">=7.0",
     "workerman/workerman": "^v3.5",
     "monolog/monolog": "^1.24"
+  },
+  "autoload": {
+    "files": [],
+      "psr-4": {
+          "CubePHP\\": "src"
+      }
   }
 }
