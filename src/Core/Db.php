@@ -46,4 +46,15 @@ class Db {
 
         return $result;
     }
+
+    public function query($sql) {
+        $result = false;
+
+        if (!empty($sql)) {
+            $pdo = $this->_pdo;
+            $result = $pdo->query($sql);
+        }
+
+        return $result;
+    }
 }
