@@ -1,13 +1,14 @@
 {
   "name": "jasydong/cubephp",
-  "description": "A super lightweight php framework",
+  "description": "A super fast php framework based on workerman",
   "type": "php-framework",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": [
     "OSL-3.0"
   ],
   "require": {
-    "php": ">=5.4.0"
-  },
-  "minimum-stability": "dev"
+    "php": ">=7.0",
+    "workerman/workerman": "^v3.5",
+    "monolog/monolog": "^1.24"
+  }
 }
