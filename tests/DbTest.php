@@ -2,7 +2,7 @@
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 use PHPUnit\Framework\TestCase;
-use CubePHP\Core\Db;
+use CubePHP\Core\Mysql;
 
 /**
  * 测试数据库功能
@@ -16,7 +16,7 @@ class DbTest extends TestCase
      */
     protected function setUp() : void
     {
-        $this->_db = new Db($GLOBALS['DB_DSN'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD']);
+        $this->_db = new Mysql($GLOBALS['DB_HOST'], $GLOBALS['DB_PORT'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD'], $GLOBALS['DB_DBNAME']);
 
         //创建表结构
         $query = "CREATE TABLE test (`id` int(10) NOT NULL AUTO_INCREMENT, `key` VARCHAR(64) NOT NULL, PRIMARY KEY (`id`))";
@@ -49,7 +49,7 @@ class DbTest extends TestCase
     public function testFetchRecord()
     {
         $sql = "select * from test;";
-        $rows = $this->_db->fetchAll($sql);
+        $rows = $this->_db->query($sql);
 
         $this->assertEquals(1, count($rows));
     }
