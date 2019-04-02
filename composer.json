@@ -9,7 +9,8 @@
   "require": {
     "php": ">=7.0",
     "workerman/workerman": "^v3.5",
-    "monolog/monolog": "^1.24"
+    "monolog/monolog": "^1.24",
+    "workerman/mysql": "^1.0"
   },
   "autoload": {
     "files": [],
