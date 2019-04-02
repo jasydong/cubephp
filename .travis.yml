@@ -1,0 +1,20 @@
+language: php
+
+php:
+  - 7.1
+  - 7.2
+  - 7.3
+
+before_script:
+  - cd ~
+  # git clone jasydong/cubephp
+  - git clone https://github.com/jasydong/cubephp.git
+  - cd cubephp
+  - composer install
+
+# run sample command
+script: phpunit
+
+# configure notifications
+notifications:
+  email: "jasydong@qq.com"
