@@ -10,4 +10,4 @@ define('ROOT_PATH', dirname(__DIR__));
 // start webserver
 $webServer = new WebServer();
 
-$webServer->start();
+$webServer->start('0.0.0.0', '2346');

@@ -33,16 +33,16 @@ class App {
      * 运行(用于WebServer)
      */
     public static function runForWebServer() {
-        // 初始化
-        static::init();
-
         // 处理请求
         $request = Request::factory();
         // 开启Buffer
         ob_start();
         $request->execute();
+        // 获取缓冲区内容
+        $content = ob_get_clean();
+        unset($request);
 
-        return ob_get_clean();
+        return $content;
     }
 
     /**

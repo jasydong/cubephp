@@ -120,6 +120,7 @@ class Request {
 					$action = $this->_action;
 					if (method_exists($controller, $action)) {
 						$controller->$action();
+						unset($controller);
 					}
                 }
             }
