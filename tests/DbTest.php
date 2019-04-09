@@ -16,7 +16,15 @@ class DbTest extends TestCase
      */
     protected function setUp() : void
     {
-        $this->_db = new Mysql($GLOBALS['DB_HOST'], $GLOBALS['DB_PORT'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD'], $GLOBALS['DB_DBNAME']);
+        $config = [];
+        $config['mysql_host'] = $GLOBALS['DB_HOST'];
+        $config['mysql_port'] = $GLOBALS['DB_PORT'];
+        $config['mysql_user'] = $GLOBALS['DB_USER'];
+        $config['mysql_password'] = $GLOBALS['DB_PASSWD'];
+        $config['mysql_charset'] = $GLOBALS['DB_CHARSET'];
+        $config['db_name'] = $GLOBALS['DB_DBNAME'];
+
+        $this->_db = new Mysql($config);
 
         //创建表结构
         $query = "CREATE TABLE test (`id` int(10) NOT NULL AUTO_INCREMENT, `key` VARCHAR(64) NOT NULL, PRIMARY KEY (`id`))";
