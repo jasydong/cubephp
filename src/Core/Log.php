@@ -3,6 +3,7 @@ namespace CubePHP\Core;
 
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use Monolog\Formatter\LineFormatter;
 
 /**
  * Log Class
@@ -12,16 +13,23 @@ use Monolog\Handler\StreamHandler;
  * @copyright  (c) 2019 CubePHP
  */
 class Log {
+    // 日志实例
     public static $_logger = null;
+    // 日志格式
+    public static $_format = "%datetime% %channel%.%level_name% %message%\n";
 
     /**
      * 获取Logger实例
      */
     public static function getLogger() {
         if (!self::$_logger) {
-            $logger = new Logger('log');
             $date = date("Y-m-d", time());
-            $logger->pushHandler(new StreamHandler(ROOT_PATH."/data/logs/{$date}.log"));
+            // 创建日志实例
+            $logger = new Logger('logger');
+            $streamHandler = new StreamHandler(ROOT_PATH . "/data/logs/{$date}.log");
+            // 设置日志格式
+            $streamHandler->setFormatter(new LineFormatter(self::$_format));
+            $logger->pushHandler($streamHandler);
 
             self::$_logger = $logger;
         }
