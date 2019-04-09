@@ -61,7 +61,7 @@ class App {
 
         set_error_handler(function($code, $error, $file = null, $line = null) {
             if (error_reporting() & $code) {
-                throw new Exception($error, $code);
+                throw new \Exception($error, $code);
             }
         });
 
