@@ -5,7 +5,7 @@ use Workerman\Worker;
 use Workerman\Connection\AsyncTcpConnection;
 
 /**
- * Mysql Proxy Class
+ * MysqlProxyServer Class
  *
  * @package    Core
  * @author     JasyDong
