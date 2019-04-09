@@ -18,7 +18,7 @@ class Index extends Controller {
 	 */
 	public function index()
 	{
-        echo 'Hello, CubePHP!!!'.time();
+        echo 'Hello, CubePHP!!!';
 	}
 
 }
