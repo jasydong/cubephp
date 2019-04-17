@@ -15,6 +15,7 @@ error_reporting(E_ALL);
 ini_set("display_errors", true);
 
 define('ROOT_PATH', dirname(__DIR__));
+define('CONFIG_PATH', ROOT_PATH . '/config');
 
 
 // 运行
