@@ -11,7 +11,8 @@
     "workerman/workerman": "^v3.5",
     "monolog/monolog": "^1.24",
     "workerman/mysql": "^1.0",
-    "symfony/yaml": "^4.2"
+    "symfony/yaml": "^4.2",
+    "filp/whoops": "^2.3"
   },
   "autoload": {
     "files": [],

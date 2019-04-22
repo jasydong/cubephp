@@ -1,3 +1,5 @@
+env: dev
+
 database: 
   mysql_host: localhost
   mysql_port: 3306

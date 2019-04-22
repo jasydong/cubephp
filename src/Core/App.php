@@ -1,6 +1,7 @@
 <?php
 namespace CubePHP\Core;
 
+
 /**
  * App Class
  *
@@ -9,12 +10,18 @@ namespace CubePHP\Core;
  * @copyright  (c) 2019 CubePHP
  */
 class App {
+    // 环境变量
+    public static $env = 'local';
+
     /**
      * 初始化
      */
     public static function init() {
-        // 注册异常处理
-        self::setExceptionHandler();
+        // 加载配置
+        self::loadConfig();
+
+        // 注册异常处理(美化错误信息)
+        self::registerWhoopsHandler();
     }
 
     /**
@@ -27,6 +34,17 @@ class App {
         // 处理请求
         $request = Request::factory();
         $request->execute();
+    }
+
+    /**
+     * 加载配置
+     */
+    public static function loadConfig() {
+        $config = Config::get('app');
+
+        if (isset($config['env']) && !empty($config['env'])) {
+            self::$env = $config['env'];
+        }
     }
 
     /**
@@ -46,40 +64,22 @@ class App {
     }
 
     /**
-	 * 注册异常处理
+	 * 注册异常处理(美化错误信息)
 	 */
-    public static function setExceptionHandler () {
-        register_shutdown_function(function() {
-            $last = error_get_last();
-            if (!empty($last)) {
-                $message = isset($last['message']) ? $last['message']:'';
-                $file = isset($last['file']) ? $last['file']:'';
-                $line = isset($last['line']) ? $last['line']:'';
-                Log::error("{$message} in file {$file}(line:{$line})");
-            }
-        });
+    public static function registerWhoopsHandler() {
+        $whoops = new \Whoops\Run;
 
-        set_error_handler(function($code, $error, $file = null, $line = null) {
-            if (error_reporting() & $code) {
-                throw new \Exception($error, $code);
-            }
-        });
+        // 错误页
+        if (self::$env != 'product') {
+            $handler = new \Whoops\Handler\PrettyPageHandler;
+            $whoops->pushHandler($handler);
+        } else { //记录到日志
+            $logger = Log::getLogger();
+            $handler = new \Whoops\Handler\PlainTextHandler($logger);
+            $handler->loggerOnly(true);
+            $whoops->pushHandler($handler);
+        }
 
-        set_exception_handler(function($e) {
-            if ($e->getMessage())	{
-                $message = $e->getMessage();
-                $file = $e->getFile();
-                $line = $e->getLine();
-                $traceString = $e->getTraceAsString();
-
-                Log::error("{$message} in file {$file}(line:{$line})");
-
-                if (!empty($traces)) {
-                    Log::error("{$traceString}");
-                }
-
-                return true;
-            }
-        });
+        $whoops->register();
     }
 }
