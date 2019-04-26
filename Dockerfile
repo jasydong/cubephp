@@ -1,7 +1,7 @@
 FROM php:7.2
 
 RUN apt-get update \
-    && apt-get install -y git unzip wget sudo libpng-dev libjpeg-dev libbz2-dev libicu-dev libmcrypt-dev libpq-dev libmagickwand-dev
+    && apt-get install -y git unzip wget sudo vim libpng-dev libjpeg-dev libbz2-dev libicu-dev libmcrypt-dev libpq-dev libmagickwand-dev
 
 RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
     && docker-php-ext-install bcmath \
@@ -43,4 +43,4 @@ RUN chmod g+w /usr/local/etc/php/conf.d/ \
 USER www-data
 WORKDIR /var/www
 
-EXPOSE 80
+EXPOSE 8080
