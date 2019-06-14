@@ -1,4 +1,4 @@
-FROM php:7.2
+FROM php:7.2-fpm
 
 RUN apt-get update \
     && apt-get install -y git unzip wget sudo vim libpng-dev libjpeg-dev libbz2-dev libicu-dev libmcrypt-dev libpq-dev libmagickwand-dev
@@ -22,6 +22,7 @@ RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
 RUN pecl install Imagick && echo "extension=imagick.so" > /usr/local/etc/php/conf.d/imagick.ini
 RUN pecl install xdebug && echo "zend_extension=xdebug.so" > /usr/local/etc/php/conf.d/xdebug.ini
 RUN pecl install mcrypt-1.0.1 && echo "extension=mcrypt.so" > /usr/local/etc/php/conf.d/mcrypt.ini
+RUN pecl install yaf && echo "extension=yaf.so" > /usr/local/etc/php/conf.d/yaf.ini
 
 RUN sudo apt-get install -y libevent-dev libssl-dev \
     && sudo pecl install event \
@@ -37,10 +38,10 @@ RUN cd /usr/local/lib \
 
 RUN chmod g+w /usr/local/etc/php/conf.d/ \
     && usermod -a -G staff www-data \
-    && chown www-data:staff /var/www \
+    && chown www-data:staff /var/www/html \
     && echo 'www-data  ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/www-data
 
 USER www-data
-WORKDIR /var/www
+WORKDIR /var/www/html
 
 EXPOSE 8080
